@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauty Code — Websites for businesses that live on social media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B0E17;
+    --magenta:#C8195E;
+    --peach:#FFB088;
+    --paper:#FBF3EC;
+    --lilac:#E7D4E0;
+    --gold:#D9A441;
+    --line: rgba(27,14,23,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,243,236,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;display:flex;align-items:center;gap:8px;}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--magenta);display:inline-block;}
+  .navlinks{display:flex;gap:32px;font-size:0.92rem;font-weight:500;}
+  .navlinks a{opacity:0.75;transition:opacity .2s;}
+  .navlinks a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--ink);color:var(--paper);padding:10px 20px;border-radius:99px;
+    font-size:0.85rem;font-weight:600;
+  }
+  @media (max-width:760px){.navlinks{display:none;}}
+
+  /* HERO */
+  .hero{
+    padding:84px 0 60px;
+    position:relative;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:50px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    color:var(--magenta);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    display:inline-flex;align-items:center;gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;background:var(--magenta);border-radius:50%;}
+  h1.hero-title{
+    font-size:clamp(2.5rem,4.4vw,4rem);
+    line-height:1.03;
+    font-weight:600;
+  }
+  h1.hero-title em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--magenta);
+  }
+  .hero-sub{
+    font-size:1.08rem;
+    line-height:1.6;
+    color:rgba(27,14,23,0.72);
+    max-width:480px;
+    margin:22px 0 30px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    background:var(--magenta);color:#fff;padding:15px 28px;border-radius:99px;
+    font-weight:600;font-size:0.95rem;
+    box-shadow:0 8px 24px rgba(200,25,94,0.28);
+    border:none;cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,25,94,0.36);}
+  .btn-ghost{
+    padding:15px 22px;font-weight:600;font-size:0.95rem;
+    border:1.5px solid var(--ink);border-radius:99px;
+  }
+  .hero-note{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    color:rgba(27,14,23,0.55);
+    margin-top:18px;
+  }
+
+  /* PHONE TRANSFORM — signature element */
+  .phone-stage{
+    position:relative;
+    display:flex;justify-content:center;
+    perspective:1200px;
+  }
+  .phone{
+    width:280px;height:560px;
+    border-radius:38px;
+    background:var(--ink);
+    padding:10px;
+    box-shadow:0 30px 60px rgba(27,14,23,0.25);
+    position:relative;
+  }
+  .phone-screen{
+    width:100%;height:100%;
+    border-radius:30px;
+    overflow:hidden;
+    position:relative;
+    background:#fff;
+  }
+  .screen-face{
+    position:absolute;inset:0;
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  /* before: chaotic bio links */
+  .face-before{
+    background:linear-gradient(180deg,#16101a,#1B0E17);
+    color:#fff;
+    padding:34px 18px;
+    opacity:1;
+  }
+  .face-before .avatar{
+    width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(135deg,var(--magenta),var(--peach));
+    margin:0 auto 10px;
+  }
+  .face-before .handle{text-align:center;font-family:'Space Mono',monospace;font-size:0.8rem;opacity:0.8;}
+  .face-before .bio{text-align:center;font-size:0.72rem;opacity:0.55;margin:6px 0 22px;}
+  .link-pill{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:14px;
+    padding:12px;
+    font-size:0.72rem;
+    text-align:center;
+    margin-bottom:10px;
+    color:rgba(255,255,255,0.75);
+  }
+  /* after: clean site */
+  .face-after{
+    opacity:0;
+    background:var(--paper);
+    padding:0;
+  }
+  .after-nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 18px;border-bottom:1px solid var(--line);
+    font-size:0.65rem;font-weight:700;letter-spacing:0.04em;
+  }
+  .after-nav span:last-child{
+    background:var(--magenta);color:#fff;padding:5px 10px;border-radius:99px;font-size:0.58rem;
+  }
+  .after-hero{padding:26px 18px 18px;}
+  .after-hero .tag{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--magenta);}
+  .after-hero h4{font-family:'Fraunces',serif;font-size:1.3rem;margin:8px 0;line-height:1.15;}
+  .after-hero p{font-size:0.68rem;color:rgba(27,14,23,0.6);line-height:1.5;}
+  .after-img{
+    margin:14px 18px 0;height:130px;border-radius:14px;
+    background:linear-gradient(135deg,var(--peach),var(--lilac));
+  }
+  .after-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 18px;}
+  .after-card{background:#fff;border:1px solid var(--line);border-radius:10px;height:60px;}
+  .domain-bar{
+    position:absolute;
+    bottom:-20px;left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);color:var(--paper);
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;
+    padding:9px 18px;border-radius:99px;
+    white-space:nowrap;
+    box-shadow:0 12px 24px rgba(27,14,23,0.3);
+    display:flex;align-items:center;gap:7px;
+  }
+  .domain-bar .lock{opacity:0.5;}
+  .swap-tag{
+    position:absolute;top:18px;right:-14px;
+    background:var(--gold);color:var(--ink);
+    font-family:'Space Mono',monospace;
+    font-size:0.62rem;font-weight:700;
+    padding:6px 10px;border-radius:8px;
+    transform:rotate(7deg);
+  }
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .phone-stage{margin-top:30px;}
+  }
+
+  /* SECTION shared */
+  section{padding:90px 0;}
+  .section-head{max-width:560px;margin-bottom:54px;}
+  .section-eyebrow{
+    font-family:'Space Mono',monospace;font-size:0.74rem;color:var(--magenta);
+    text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;display:block;
+  }
+  .section-head h2{font-size:clamp(1.9rem,3vw,2.6rem);font-weight:600;line-height:1.12;}
+
+  /* PROBLEM STRIP */
+  .problem{background:var(--ink);color:var(--paper);}
+  .problem .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .problem h2{color:var(--paper);}
+  .problem-list{display:flex;flex-direction:column;gap:22px;}
+  .problem-item{
+    border-top:1px solid rgba(251,243,236,0.16);
+    padding-top:18px;
+    display:flex;gap:16px;
+  }
+  .problem-item .x{
+    font-family:'Space Mono',monospace;color:var(--peach);font-size:0.85rem;flex-shrink:0;
+  }
+  .problem-item p{margin:0;font-size:0.98rem;line-height:1.55;opacity:0.85;}
+
+  /* PROCESS */
+  .process-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    background:#fff;
+  }
+  .process-card{
+    padding:38px 30px;
+    border-right:1px solid var(--line);
+    position:relative;
+  }
+  .process-card:last-child{border-right:none;}
+  .process-num{
+    font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--magenta);
+    margin-bottom:18px;display:block;
+  }
+  .process-card h3{font-size:1.2rem;font-weight:600;margin-bottom:10px;}
+  .process-card p{font-size:0.92rem;line-height:1.55;color:rgba(27,14,23,0.65);margin:0;}
+  @media (max-width:800px){
+    .process-grid{grid-template-columns:1fr;}
+    .process-card{border-right:none;border-bottom:1px solid var(--line);}
+  }
+
+  /* PACKAGES */
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .pkg-card{
+    border:1px solid var(--line);border-radius:20px;padding:34px 28px;
+    background:#fff;
+    display:flex;flex-direction:column;
+  }
+  .pkg-card.featured{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+    transform:translateY(-10px);
+    box-shadow:0 24px 50px rgba(27,14,23,0.22);
+  }
+  .pkg-name{font-family:'Space Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.6;margin-bottom:10px;}
+  .pkg-card.featured .pkg-name{color:var(--peach);opacity:1;}
+  .pkg-price{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:600;margin-bottom:4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .pkg-price-unit{font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:500;opacity:0.55;}
+  .pkg-price-plus{font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--magenta);}
+  .pkg-card.featured .pkg-price-plus{color:var(--peach);}
+  .pkg-note{display:block;font-family:'Inter',sans-serif;font-size:0.74rem;opacity:0.55;margin-top:2px;}
+  .pkg-card h3{font-size:1.7rem;margin-bottom:4px;}
+  .pkg-for{font-size:0.85rem;opacity:0.6;margin-bottom:22px;}
+  .pkg-card.featured .pkg-for{color:var(--lilac);opacity:0.85;}
+  .pkg-list{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-direction:column;gap:11px;flex-grow:1;}
+  .pkg-list li{font-size:0.88rem;display:flex;gap:10px;line-height:1.4;}
+  .pkg-list li::before{content:'—';color:var(--magenta);flex-shrink:0;}
+  .pkg-card.featured .pkg-list li::before{color:var(--peach);}
+  .pkg-cta{
+    text-align:center;padding:13px;border-radius:99px;font-weight:600;font-size:0.9rem;
+    border:1.5px solid var(--ink);
+  }
+  .pkg-card.featured .pkg-cta{background:var(--magenta);border-color:var(--magenta);color:#fff;}
+  @media (max-width:900px){.pkg-grid{grid-template-columns:1fr;}.pkg-card.featured{transform:none;}}
+
+  /* PROOF / FOR-WHO */
+  .audience{background:var(--lilac);}
+  .audience .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .audience-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+  .tag-pill{
+    background:#fff;border:1px solid var(--line);border-radius:99px;
+    padding:9px 16px;font-size:0.85rem;font-weight:500;
+  }
+  .audience-quote{
+    background:#fff;border-radius:20px;padding:32px;
+    border:1px solid var(--line);
+  }
+  .audience-quote p{font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;line-height:1.45;margin-bottom:16px;}
+  .audience-quote .who{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--magenta);}
+
+  /* CTA */
+  .cta-section{
+    background:var(--magenta);color:#fff;text-align:center;
+    border-radius:28px;
+    margin:0 28px;
+    padding:74px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-section h2{color:#fff;font-size:clamp(2rem,4vw,3rem);max-width:680px;margin:0 auto 18px;}
+  .cta-section p{opacity:0.9;max-width:500px;margin:0 auto 30px;font-size:1.02rem;}
+  .cta-section .btn-primary{background:#fff;color:var(--magenta);box-shadow:none;}
+  .cta-domain{
+    font-family:'Space Mono',monospace;font-size:0.8rem;opacity:0.75;margin-top:20px;
+  }
+
+  footer{padding:50px 0 40px;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;border-top:1px solid var(--line);padding-top:30px;}
+  footer .foot-links{display:flex;gap:24px;font-size:0.85rem;opacity:0.7;}
+  footer .foot-note{font-family:'Space Mono',monospace;font-size:0.74rem;opacity:0.5;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>Beauty Code</div>
+    <div class="navlinks">
+      <a href="#process">How it works</a>
+      <a href="#packages">Packages</a>
+      <a href="#audience">Who it's for</a>
+    </div>
+    <a href="#cta" class="nav-cta">Claim your domain</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">For businesses built on social media</span>
+      <h1 class="hero-title">Your shop has <em>followers.</em><br>Now give it a home.</h1>
+      <p class="hero-sub">You built something real on social media — orders, DMs, a following. Beauty Code turns that into a proper website on your own domain, so customers can find you, trust you, and buy from you without scrolling through a feed.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Get my website</a>
+        <a href="#process" class="btn-ghost">See how it works</a>
+      </div>
+      <div class="hero-note">domain registration · design · hosting — all handled, start to finish</div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="screen-face face-before" id="faceBefore">
+            <div class="avatar"></div>
+            <div class="handle">@yourshop.co.za</div>
+            <div class="bio">orders open · dm to buy · 🇿🇦</div>
+            <div class="link-pill">📦 Catalogue (Google Drive link)</div>
+            <div class="link-pill">💬 WhatsApp to order</div>
+            <div class="link-pill">📍 Where we deliver</div>
+            <div class="link-pill">⭐ See reviews</div>
+          </div>
+          <div class="screen-face face-after" id="faceAfter">
+            <div class="after-nav"><span>YOURSHOP</span><span>Shop now</span></div>
+            <div class="after-hero">
+              <div class="tag">NEW ARRIVALS</div>
+              <h4>Made for you,<br>shipped fast.</h4>
+              <p>Browse the full range and order in two taps — no DMs needed.</p>
+            </div>
+            <div class="after-img"></div>
+            <div class="after-grid">
+              <div class="after-card"></div>
+              <div class="after-card"></div>
+            </div>
+          </div>
+        </div>
+        <div class="swap-tag">02 weeks later</div>
+        <div class="domain-bar"><span class="lock">🔒</span> yourshop.co.za</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem">
+  <div class="wrap">
+    <div>
+      <h2>A bio link isn't a business address.</h2>
+      <p style="opacity:0.75;margin-top:18px;font-size:1.02rem;line-height:1.6;">Instagram, TikTok, Facebook — they got you customers. But none of them were built to be your storefront.</p>
+    </div>
+    <div class="problem-list">
+      <div class="problem-item"><span class="x">×</span><p>Your "shop" is a Linktree, a Google Form, and a WhatsApp chat that goes quiet at night.</p></div>
+      <div class="problem-item"><span class="x">×</span><p>New customers can't tell if you're a real business — there's no domain, no proper site, nothing to Google.</p></div>
+      <div class="problem-item"><span class="x">×</span><p>If your account gets restricted or the algorithm goes quiet, your whole shop disappears with it.</p></div>
+      <div class="problem-item"><span class="x">×</span><p>You don't have time to learn web design — and you shouldn't have to.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">How it works</span>
+      <h2>Three steps. You barely lift a finger.</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <span class="process-num">01 / DOMAIN</span>
+        <h3>You register your name</h3>
+        <p>I guide you through buying your domain on GoDaddy (yourshop.co.za or .com) — you own it, you pay GoDaddy directly, and I make sure it's set up correctly.</p>
+      </div>
+      <div class="process-card">
+        <span class="process-num">02 / DESIGN</span>
+        <h3>We build the site</h3>
+        <p>Using your products, photos and brand colours from your socials, I design and build a clean static website that loads fast and looks like a real business.</p>
+      </div>
+      <div class="process-card">
+        <span class="process-num">03 / LAUNCH</span>
+        <h3>We go live</h3>
+        <p>The site is deployed, connected to your domain, and tested on mobile — because that's where your customers are. You get the link to share everywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audience" class="audience">
+  <div class="wrap">
+    <div>
+      <span class="section-eyebrow">Who this is for</span>
+      <h2>If social media sells it, this is for you.</h2>
+      <p style="margin-top:16px;opacity:0.75;line-height:1.6;">Beauty Code works best for people already moving product through Instagram, TikTok, Facebook or WhatsApp, who just don't have anywhere "official" to send people.</p>
+      <div class="audience-tags">
+        <span class="tag-pill">Beauty & skincare sellers</span>
+        <span class="tag-pill">Clothing & accessories</span>
+        <span class="tag-pill">Home bakers & caterers</span>
+        <span class="tag-pill">Coaches & service providers</span>
+        <span class="tag-pill">Small local brands</span>
+      </div>
+    </div>
+    <div class="audience-quote">
+      <p>"I had 40k followers and customers messaging me daily, but no actual website. Now I send people one link and they can browse and order without me replying to every DM."</p>
+      <div class="who">— what most clients tell me, in different words</div>
+    </div>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Packages</span>
+      <h2>Pick what your shop needs right now.</h2>
+      <p style="margin-top:14px;opacity:0.7;font-size:0.96rem;line-height:1.55;">You only pay for the build. Your domain is registered in your own GoDaddy account and billed directly to you — usually R150–R300 a year, separate from the prices below.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <span class="pkg-name">Starter</span>
+        <h3>One-Page Site</h3>
+        <div class="pkg-price">R650<span class="pkg-price-unit">once-off</span></div>
+        <div class="pkg-for">For testing if a website is worth it</div>
+        <ul class="pkg-list">
+          <li>One-page static site</li>
+          <li>Your products, photos & socials</li>
+          <li>Mobile-optimised</li>
+          <li>I help you register your domain on GoDaddy<span class="pkg-note">(domain paid by you, ~R150–R300/yr to GoDaddy)</span></li>
+        </ul>
+        <a href="#cta" class="pkg-cta">Start here</a>
+      </div>
+      <div class="pkg-card featured">
+        <span class="pkg-name">Most chosen</span>
+        <h3>Full Shop</h3>
+        <div class="pkg-price">R1,500<span class="pkg-price-unit">once-off</span></div>
+        <div class="pkg-for">For sellers ready to look established</div>
+        <ul class="pkg-list">
+          <li>Multi-page site: Home, Shop, About, Contact</li>
+          <li>Order/enquiry form linked to WhatsApp</li>
+          <li>Hosting set up & deployed</li>
+          <li>1 round of revisions</li>
+          <li>I help you register your domain on GoDaddy<span class="pkg-note">(domain paid by you, ~R150–R300/yr to GoDaddy)</span></li>
+        </ul>
+        <a href="#cta" class="pkg-cta">Get the Full Shop</a>
+      </div>
+      <div class="pkg-card">
+        <span class="pkg-name">Growing</span>
+        <h3>Shop + Care</h3>
+        <div class="pkg-price">R1,500<span class="pkg-price-unit">once-off</span> <span class="pkg-price-plus">+ R250/mo</span></div>
+        <div class="pkg-for">For shops that update often</div>
+        <ul class="pkg-list">
+          <li>Everything in Full Shop</li>
+          <li>Monthly content/product updates</li>
+          <li>Domain renewal reminders handled for you</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#cta" class="pkg-cta">Ask about this</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta-section">
+    <h2>Stop sending customers to a Linktree.</h2>
+    <p>Tell me about your shop and I'll guide you through getting your domain, then have your site live within two weeks.</p>
+    <a href="#" class="btn-primary" id="ctaBtn">Get my website</a>
+    <div class="cta-domain">yourshop.co.za — still available, for now</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>Beauty Code</div>
+    <div class="foot-links">
+      <a href="#process">How it works</a>
+      <a href="#packages">Packages</a>
+      <a href="#audience">Who it's for</a>
+    </div>
+    <div class="foot-note">domains via GoDaddy · static sites · made for social-first shops</div>
+  </div>
+</footer>
+
+<script>
+  // Hero phone: cross-fade before -> after, looping
+  const before = document.getElementById('faceBefore');
+  const after = document.getElementById('faceAfter');
+  let showingAfter = false;
+  function swap(){
+    showingAfter = !showingAfter;
+    before.style.opacity = showingAfter ? 0 : 1;
+    after.style.opacity = showingAfter ? 1 : 0;
+  }
+  setInterval(swap, 3200);
+
+  document.getElementById('ctaBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    sendPrompt("I'm ready to get my website — let's talk about my shop and pick a package.");
+  });
+</script>
+
+</body>
+</html>
